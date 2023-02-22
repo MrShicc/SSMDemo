@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                        http://www.springframework.org/schema/mvc
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <!-- 集成SpringMVC时Mybatis配置文件也将使用SpringBean的方式来配置 -->
+
+    <!-- 加载database.properties配置项目内容 -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >
+        <property name="location" value="classpath:database.properties" />
+    </bean>
+
+    <!-- druid连接配置 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <!-- 数据源连接属性 -->
+        <property name="driverClassName" value="${driver}" />
+        <property name="url" value="${url}" />
+        <property name="username" value="${username}" />
+        <property name="password" value="${password}" />
+
+        <!-- 配置初始化大小、最大、最小 -->
+        <property name="initialSize" value="${initialSize}" />
+        <property name="minIdle" value="${minIdle}" />
+        <property name="maxActive" value="${maxActive}" />
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="${maxWait}" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+
+        <!-- 检测空闲是否开启 -->
+        <property name="testWhileIdle" value="true" />
+
+        <!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+        <property name="testOnBorrow" value="true" />
+        <property name="testOnReturn" value="false" />
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+
+        <!-- 这里配置提交方式，默认就是TRUE，可以不用配置 -->
+        <property name="defaultAutoCommit" value="true" />
+
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同  mysql:select 1  ;oracle : select 1 from dual -->
+        <property name="validationQuery" value="select 1 from dual" />
+        <property name="filters" value="wall,stat" />
+        <property name="proxyFilters">
+            <list>
+                <ref bean="logFilter" />
+                <ref bean="stat-filter" />
+            </list>
+        </property>
+    </bean>
+
+    <!-- 慢SQL记录 -->
+    <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+        <!-- 慢sql时间设置,即执行时间大于50毫秒的都是慢sql -->
+        <property name="slowSqlMillis" value="50"/>
+        <property name="logSlowSql" value="true"/>
+    </bean>
+    <!-- 启用慢sql日志记录时，需要引入slf4j日志包 -->
+    <bean id="logFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+        <property name="dataSourceLogEnabled" value="true" />
+        <property name="statementExecutableSqlLogEnable" value="true" />
+    </bean>
+
+    <!-- spring和mybatis完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- ref指向数据源配置id -->
+        <property name="dataSource" ref="dataSource" />
+        <!-- 自动扫描包中的类生成别名，如：com.a.User包 别名可以是User或user -->
+        <property name="typeAliasesPackage" value="com.mrjiang.ssmdemo" />
+        <!-- 自动扫描mapping.xml文件 -->
+        <property name="mapperLocations" value="classpath:com/mrjiang/ssmdemo/mybatis/dao/**/*.xml"></property>
+        <!-- 配置分页工具 -->
+        <property name="plugins" ref="pageInterceptor" />
+    </bean>
+
+    <!-- sqlSession配置规则 -->
+    <!-- DAO接口所在的包名，spring会自动查找其下的类，！注意这句 value="sqlSessionFactory"，不是ref而是value -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
+        <!-- 指向mybatis接口文件所在的包 -->
+        <property name="basePackage" value="com.mrjiang.ssmdemo.mybatis.dao" />
+        <!-- value指向配置sqlSessionFactory类的id -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+
+    <!-- pageHepler分页拦截器 -->
+    <bean id="pageInterceptor" class="com.github.pagehelper.PageHelper">
+        <property name="properties">
+            <props>
+                <prop key="helperDialect">mysql</prop>
+                <prop key="reasonable">true</prop>
+                <prop key="supportMethodsArguments">true</prop>
+                <prop key="params">count=countSql</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 自动扫描@Mapper注解，将mybatis接口自动实现实例且交由给springMVC管理 -->
+    <context:component-scan base-package="com.mrjiang.ssmdemo.mybatis.dao">
+        <!-- 排除其他注解值扫描@Mapper -->
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller" />
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Service" />
+    </context:component-scan>
+
+</beans>
