@@ -21,22 +21,21 @@ public class MyTestInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
 
-
         System.out.println("拦截器：preHandle");
-
-
 
         Object userName = request.getSession().getAttribute("userName");
 
-        System.out.println(userName);
-
         Object userState = request.getSession().getAttribute("state");
-        System.out.println(userState);
 
-        if (userName == null &&userState == null){
+        //拦截翻墙访问
+        if (userName == null && userState == null){
 
-            response.sendRedirect("toLogin");
 
+            request.getSession().setAttribute("Code",1);
+
+
+            response.setHeader("status","loginOut");
+//            request.getRequestDispatcher("/toInt").forward(request, response);
             return false;
         }
 
@@ -52,5 +51,7 @@ public class MyTestInterceptor implements HandlerInterceptor {
     // 在调用目标controller方法“后”，以及视图渲染完成，数据返回成功才执行
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         System.out.println("拦截器：afterCompletion");
+
     }
+
 }

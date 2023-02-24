@@ -111,6 +111,28 @@
 
     });
 
+    //AJAX的全局默认设置~
+    $.ajaxSetup({
+        contentType: "application/x-www-form-urlencoded;charset=utf-8",
+        complete: function(XMLHttpRequest,status){
+            //XMLHttpRequest.readyState
+            //  HTTP 请求的状态.当一个 XMLHttpRequest 初次创建时，这个属性的值从 0 开始，
+            //  当这个值增加到 4，则表示收到完整的 HTTP 响应。
+            //XMLHttpRequest.status 404，500，不解释了
+            //XMLHttpRequest.getResponseHeader 划重点！！
+            //  是根据key从后台拦截器那里添加到Header的数据
+            if (XMLHttpRequest.readyState == 4 &&
+                (XMLHttpRequest.status!=200||XMLHttpRequest.getResponseHeader("status")=="loginOut")){
+                alert('登录失效，请重新登录');
+                //这里是跳转至登录页面
+                //因为拦截器已经得知Session过期了
+                //所以全局刷新是会跳转到登录页面的
+                location.href = "<%=basePath %>/User/toLogin";
+            }
+        }
+    });
+
+    //退出操作
     function out(){
         $.ajax({
             url:"<%=basePath %>/User/doOut"+"/?outState=0",
@@ -118,16 +140,16 @@
             async:false,
             success:function(data){
                 if(data.code=="200"){
-                    alert("正在退出....")
+                    //alert("正在退出....")
                     location.href = "<%=basePath %>/User/toLogin";
                 }
                 else {
-                    alert("发生未知的错误!")
+                    //alert("发生未知的错误!")
                 }
 
             },
             error:function(){
-                alert("请求错误");
+                //alert("请求错误");
             }
         });
     }
@@ -174,11 +196,11 @@
                     $("#studentTable").html(htmls);
 
                 }else{
-                    alert(data.msg);
+                    //alert(data.msg);
                 }
             },
             error:function(){
-                alert("请求错误");
+                //alert("请求错误");
             }
         });
     }
@@ -191,16 +213,16 @@
             async:false,
             success:function(data){
                 if(data.code=="200"){
-                    alert("正在加载....")
+                    //alert("正在加载....")
                     initTable()
                 }
                 if (data.code=="201"){
-                    alert("正在加载....")
+                    //alert("正在加载....")
                     toQuery()
                 }
             },
             error:function(){
-                alert("请求错误");
+                //alert("请求错误");
             }
         });
     }
@@ -213,16 +235,16 @@
             async:false,
             success:function(data){
                 if(data.code=="200"){
-                    alert("正在加载....")
+                    //alert("正在加载....")
                     initTable()
                 }
                 if (data.code=="201"){
-                    alert("正在加载....")
+                    //alert("正在加载....")
                     toQuery()
                 }
             },
             error:function(){
-                alert("请求错误");
+                //alert("请求错误");
             }
         });
     }
@@ -277,11 +299,11 @@
                     $("#studentTable").html(htmls);
 
                 }else{
-                    alert(data.msg);
+                    //alert(data.msg);
                 }
             },
             error:function(){
-                alert("请求错误");
+                //alert("请求错误");
             }
         });
     }
@@ -331,7 +353,7 @@
                 //data 后端响应的数据报文
                 if(data.code=="200"){
                     $("#msg").html('');
-                    alert("新增成功！")
+                    //alert("新增成功！")
                     initTable();
                 }else if(data.code=="100"){
                     $("#msg").html(data.msg);
@@ -339,7 +361,7 @@
 
             },
             error:function(){
-                alert("请求错误");
+                //alert("请求错误");
             }
         });
     }
@@ -353,7 +375,7 @@
             async:false,
             data:{"userId":userId},
             success:function(data){
-                alert("正在加载...")
+                // //alert("正在加载...")
                 console.log(data);
                 $("#idMsg").html(data.data.userId);
                 $("#nameMsg").html(data.data.userName);
@@ -361,7 +383,7 @@
                 $("#numbMsg").html(data.data.numb);
             },
             error:function(){
-                alert("请求错误");
+                ////alert("请求错误");
             }
         });
     }
@@ -406,16 +428,17 @@
                 //data 后端响应的数据报文
                 if(data.code=="200"){
                     $("#msg").html('');
-                    alert("修改成功！")
+                    // //alert("修改成功！")
+                    $("#upDateForm").hide();
                     initTable();
                 }else if(data.code=="100"){
                     $("#msg").html(data.msg);
-                    alert("错误！")
+                    // //alert("错误！")
                 }
 
             },
             error:function(){
-                alert("请求错误");
+                //alert("请求错误");
             }
         });
     }
@@ -428,20 +451,20 @@
             async:false,
             data:{"userId":userId},
             success:function(data){
-                alert("正在删除...")
+                //alert("正在删除...")
                 console.log(data);
                 //data 后端响应的数据报文
                 if(data.code=="200"){
                     $("#msg").html('');
-                    alert("删除！")
+                    // //alert("删除！")
                     initTable();
                 }else if(data.code=="100"){
                     $("#msg").html(data.msg);
-                    alert("错误！")
+                    // //alert("错误！")
                 }
             },
             error:function(){
-                alert("请求错误");
+                //alert("请求错误");
             }
         });
     }

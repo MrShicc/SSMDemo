@@ -45,6 +45,7 @@ public class UserController {
         return "Login";
     }
 
+
     /**
      * 跳转去主页
      * @return
@@ -222,6 +223,7 @@ public class UserController {
     @RequestMapping(value = "/NextPage",method = RequestMethod.GET)
     @ResponseBody
     public MyResult NextPage( int nub){
+
         log.debug("前端获取数据 =["+nub+"]");
 
         System.out.println("*********进行下一页业务模块*********");
@@ -365,7 +367,10 @@ public class UserController {
      */
     @RequestMapping(value = "/doUp",method = RequestMethod.POST)
     @ResponseBody
-    public MyResult doUp(@RequestBody UserDO user){
+    public MyResult doUp(@RequestBody UserDO user,HttpSession session){
+
+//        Object code = session.getAttribute("Code");
+//        System.out.println(code);
 
         user.setUserId(upDateUse);
         log.debug("前端获取编辑后的数据 =["+user+"]");
