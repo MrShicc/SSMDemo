@@ -14,5 +14,5 @@ public interface StudentService {
 
     StudentDO getStudentByID(String id);
 
-    MyPager<StudentDO> getStudentPage(MyPager pager);
+//    MyPager<StudentDO> getStudentPage(MyPager pager);
 }

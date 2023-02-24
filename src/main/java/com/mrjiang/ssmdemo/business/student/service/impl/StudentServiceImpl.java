@@ -32,26 +32,26 @@ public class StudentServiceImpl implements StudentService {
         return studentById;
     }
 
-    public MyPager<StudentDO> getStudentPage(MyPager pager) {
-
-        //创建分页结果集对象
-        MyPager<StudentDO> resultPageData = new MyPager<StudentDO>();
-
-        //调用分页工具设置分页参数（页码，每页显示多少行数据）
-        Page<StudentDO> stuPage = PageHelper.startPage(pager.getPage(),pager.getSize());
-
-        //正常调用mapper接口方法！
-        //此时，pageHepler已经拦截到sql，且把sql分页执行的结果映射到stuPage对象中
-        //取出分页的结果集
-        List<StudentDO> result = stuPage.getResult();//当前页码下的分页数据
-        long total = stuPage.getTotal();//数据查询的所有行数值
-
-        resultPageData.setTotal(total);
-        resultPageData.setRows(result);
-        resultPageData.setPage(pager.getPage());
-        resultPageData.setSize(pager.getSize());
-
-
-        return resultPageData;
-    }
+//    public MyPager<StudentDO> getStudentPage(MyPager pager) {
+//
+//        //创建分页结果集对象
+//        MyPager<StudentDO> resultPageData = new MyPager<StudentDO>();
+//
+//        //调用分页工具设置分页参数（页码，每页显示多少行数据）
+//        Page<StudentDO> stuPage = PageHelper.startPage(pager.getPage(),pager.getSize());
+//
+//        //正常调用mapper接口方法！
+//        //此时，pageHepler已经拦截到sql，且把sql分页执行的结果映射到stuPage对象中
+//        //取出分页的结果集
+//        List<StudentDO> result = stuPage.getResult();//当前页码下的分页数据
+//        long total = stuPage.getTotal();//数据查询的所有行数值
+//
+//        resultPageData.setTotal(total);
+//        resultPageData.setRows(result);
+//        resultPageData.setPage(pager.getPage());
+//        resultPageData.setSize(pager.getSize());
+//
+//
+//        return resultPageData;
+//    }
 }

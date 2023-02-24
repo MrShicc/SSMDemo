@@ -6,4 +6,7 @@
     <select id="getStudentById" resultType="com.mrjiang.ssmdemo.mybatis.domain.student.StudentDO">
         select * from student where id = #{id}
     </select>
+    <select id="getStudentPage" resultType="com.mrjiang.ssmdemo.mybatis.domain.student.StudentDO">
+        select * from student
+    </select>
 </mapper>

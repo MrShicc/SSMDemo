@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mrjiang.ssmdemo.mybatis.dao.user.UserMapper">
+
+
+
+    <select id="doLogin" resultType="com.mrjiang.ssmdemo.mybatis.domain.user.UserDO">
+        SELECT
+            *
+        FROM `user`
+        <where >
+            <if test="user.userId!=null and user.userId!=''">
+                and  UserID= #{user.userId}
+            </if>
+            <if test="user.userPwd!=null and user.userPwd!=''">
+               and UserPwd=#{user.userPwd}
+            </if>
+        </where>
+    </select>
+    <select id="getList" resultType="com.mrjiang.ssmdemo.mybatis.domain.user.UserDO">
+        SELECT
+            *
+        FROM `user`
+    </select>
+    <select id="queryList" resultType="com.mrjiang.ssmdemo.mybatis.domain.user.UserDO">
+        SELECT
+            *
+        FROM `user`
+        <where >
+            <if test="user.userId!=null and user.userId!=''">
+                and  UserID= #{user.userId}
+            </if>
+            <if test="user.numb!=null and user.numb!=''">
+                and UserPwd=#{user.numb}
+            </if>
+        </where>
+    </select>
+
+    <insert id="doAdd" >
+        INSERT INTO `user`(`UserID`, `UserName`, `UserPwd`, `Numb`,`State`)
+        VALUES (#{user.userId}, #{user.userName}, #{user.userPwd}, #{user.numb},#{user.state})
+    </insert>
+
+    <update id="doUp">
+        UPDATE `user`
+        SET `UserName` = #{user.userName}, UserPwd = #{user.userPwd}, Numb = #{user.numb}
+        WHERE `UserID` = #{user.userId}
+    </update>
+    <update id="doState">
+        UPDATE `user`
+        SET  `State` = #{user.state}
+        WHERE `UserID` = #{user.userId}
+    </update>
+
+    <delete id="doDelete" parameterType="string">
+        delete from user where UserID = #{userId}
+    </delete>
+</mapper>

@@ -50,21 +50,21 @@ public class StudentController {
         return result;
     }
 
-    @RequestMapping(value = "/getStudentById",method = RequestMethod.GET)
-    @ResponseBody
-    public MyResult getStudentPage(MyPager pager){//接收分页参数
-
-        log.debug("学生信息管理:查询学生信息分页");
-
-        MyResult result = new MyResult();
-
-        //调用业务层
-        MyPager<StudentDO> studentPage = StudentService.getStudentPage(pager);
-
-        result.setData(studentPage);
-        result.setMsg("查询成功！");
-
-        return result;
-    }
+//    @RequestMapping(value = "/getStudentById",method = RequestMethod.GET)
+//    @ResponseBody
+//    public MyResult getStudentPage(MyPager pager){//接收分页参数
+//
+//        log.debug("学生信息管理:查询学生信息分页");
+//
+//        MyResult result = new MyResult();
+//
+//        //调用业务层
+//        MyPager<StudentDO> studentPage = StudentService.getStudentPage(pager);
+//
+//        result.setData(studentPage);
+//        result.setMsg("查询成功！");
+//
+//        return result;
+//    }
 
 }

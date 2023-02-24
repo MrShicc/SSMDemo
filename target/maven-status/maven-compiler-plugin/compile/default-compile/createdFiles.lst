@@ -1,6 +1,12 @@
-com\mrjiang\ssmdemo\business\student\service\impl\StudentServiceImpl.class
-com\mrjiang\ssmdemo\mybatis\dao\student\StudentMapper.class
+com\mrjiang\ssmdemo\mybatis\domain\user\UserDO.class
 com\mrjiang\ssmdemo\business\student\controller\StudentController.class
+com\mrjiang\ssmdemo\business\user\controller\UserController.class
 com\mrjiang\ssmdemo\core\dto\MyResult.class
-com\mrjiang\ssmdemo\business\student\service\StudentService.class
 com\mrjiang\ssmdemo\mybatis\domain\student\StudentDO.class
+com\mrjiang\ssmdemo\business\student\service\impl\StudentServiceImpl.class
+com\mrjiang\ssmdemo\business\user\service\UserService.class
+com\mrjiang\ssmdemo\mybatis\dao\user\UserMapper.class
+com\mrjiang\ssmdemo\mybatis\dao\student\StudentMapper.class
+com\mrjiang\ssmdemo\business\user\service\impl\UserServiceImpl.class
+com\mrjiang\ssmdemo\core\dto\MyPager.class
+com\mrjiang\ssmdemo\business\student\service\StudentService.class

@@ -14,8 +14,8 @@ import java.util.List;
  */
 @Data
 public class MyPager<T> implements Serializable {
-    private Integer page;//当前的页码
-    private Integer size;//煤业显示的行数
+    private Integer page = 1;//当前的页码
+    private Integer size = 4;//煤业显示的行数
     private List<T> rows;//当页码的数据
     private Long total;//数据总行数
 

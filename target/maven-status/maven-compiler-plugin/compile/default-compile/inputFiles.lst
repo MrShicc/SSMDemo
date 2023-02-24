@@ -1,6 +1,12 @@
 D:\XveXiRuanJian\IDEA2022.3\IDEA Demo\SSMDemo\src\main\java\com\mrjiang\ssmdemo\business\student\service\StudentService.java
+D:\XveXiRuanJian\IDEA2022.3\IDEA Demo\SSMDemo\src\main\java\com\mrjiang\ssmdemo\mybatis\domain\user\UserDO.java
 D:\XveXiRuanJian\IDEA2022.3\IDEA Demo\SSMDemo\src\main\java\com\mrjiang\ssmdemo\mybatis\domain\student\StudentDO.java
 D:\XveXiRuanJian\IDEA2022.3\IDEA Demo\SSMDemo\src\main\java\com\mrjiang\ssmdemo\mybatis\dao\student\StudentMapper.java
+D:\XveXiRuanJian\IDEA2022.3\IDEA Demo\SSMDemo\src\main\java\com\mrjiang\ssmdemo\mybatis\dao\user\UserMapper.java
 D:\XveXiRuanJian\IDEA2022.3\IDEA Demo\SSMDemo\src\main\java\com\mrjiang\ssmdemo\business\student\controller\StudentController.java
+D:\XveXiRuanJian\IDEA2022.3\IDEA Demo\SSMDemo\src\main\java\com\mrjiang\ssmdemo\core\dto\MyPager.java
+D:\XveXiRuanJian\IDEA2022.3\IDEA Demo\SSMDemo\src\main\java\com\mrjiang\ssmdemo\business\user\service\UserService.java
+D:\XveXiRuanJian\IDEA2022.3\IDEA Demo\SSMDemo\src\main\java\com\mrjiang\ssmdemo\business\user\service\impl\UserServiceImpl.java
 D:\XveXiRuanJian\IDEA2022.3\IDEA Demo\SSMDemo\src\main\java\com\mrjiang\ssmdemo\core\dto\MyResult.java
 D:\XveXiRuanJian\IDEA2022.3\IDEA Demo\SSMDemo\src\main\java\com\mrjiang\ssmdemo\business\student\service\impl\StudentServiceImpl.java
+D:\XveXiRuanJian\IDEA2022.3\IDEA Demo\SSMDemo\src\main\java\com\mrjiang\ssmdemo\business\user\controller\UserController.java
